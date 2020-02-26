@@ -1,6 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and it is a basic implementation of login using react+typescript. In loginform component basically we create a form and validate it by formik. After that we are calling a graphql mutation to get loggedIn into the syatem.
+
+Project Structure:
+All source code for the React app is located in the /src folder. Inside the src folder there is a folder resource that contain validations file & view directory that contain all the pages and a bunch of folders for common code that can be shared across different parts of the app (config, helpers, common, interface) and one for the graphql mutation definition.
+
+The index.js files in each folder are barrel files that group all the exported modules together so they can be imported using the folder path instead of the full module path and to enable importing multiple modules in a single import.
 
 ## Available Scripts
+
+In the project directory, run this command to install all the dependencies: 
+
+### yarn install
 
 In the project directory, you can run:
 
