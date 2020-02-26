@@ -1,10 +1,15 @@
-export const EnviornmentType: any = {
-  DEV: 'development',
-  PROD: 'production',
+export const ENVEnum: any = {
+  DEVELOPMENT: 'development',
+  PRODUCTION: 'production',
 };
 
-export const env: any = process.env.NODE_ENV || EnviornmentType.DEV;
+export const Environment: string = process.env.NODE_ENV || ENVEnum.DEVELOPMENT;
+export const API_ENDPOINT: string =
+  Environment === ENVEnum.DEVELOPMENT
+    ? 'http://localhost:8080/api/v1'
+    : 'http://api.drpolly.com/v1';
 
-export const AppConfig = {
-  GRAPHQL_ENDPOINT: 'http://192.168.2.45:8000/graphql',
-};
+export const ImageURL: string =
+  Environment === ENVEnum.DEVELOPMENT
+    ? 'http://localhost:8000'
+    : 'http://images.drpolly.com';

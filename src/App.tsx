@@ -1,18 +1,45 @@
-import React, { FunctionComponent } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { ApolloProvider } from '@apollo/react-hooks';
-import Login from './resource/views/Login';
-import { client } from './config';
-import './App.css';
+import React, { Suspense } from "react";
+import "./App.scss";
+import { Provider } from "react-redux";
+import { createBrowserHistory } from "history";
+import { Store } from "redux";
+import { Router } from "react-router";
+import configureStore from "./store";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { logger } from "./helper";
+import "./extend-definitions";
+const AppRoutesComponent = React.lazy(() => import("./routes"));
 
-const App: FunctionComponent = () => {
+const history = createBrowserHistory();
+const store: Store = configureStore(history);
+logger(
+  [
+    {
+      key: "fasdfasdf"
+    },
+    { key: "fasdfasdf" }
+  ].group("key")
+);
+const App: React.FC = () => {
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <Route path='/' component={Login} />
-        <Route path='/login' component={Login} />
-      </Router>
-    </ApolloProvider>
+    <>
+      <Provider store={store}>
+        <Router history={history}>
+          <Suspense fallback={"Loading.."}>
+            <AppRoutesComponent />
+          </Suspense>
+        </Router>
+        <ToastContainer
+          autoClose={8000}
+          hideProgressBar
+          pauseOnFocusLoss={false}
+          pauseOnHover={false}
+          transition={Slide}
+        />
+      </Provider>
+    </>
   );
 };
 
