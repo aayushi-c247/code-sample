@@ -4,12 +4,12 @@ import { useMutation } from '@apollo/react-hooks';
 import { toast } from 'react-toastify';
 import { Formik, FormikProps, FormikHelpers } from 'formik';
 import { ApolloError } from 'apollo-client';
-import { LoginValidationSchema } from '../../../validations/LoginValidationSchema';
-import { ILoginFormValues, ILoginResponse } from '../../../../interfaces';
+import { ILoginFormValues, ILoginResponse } from '../../../interfaces';
+import { LoginValidationSchema } from '../../validations';
 import LoginFormComponent from './LoginFormComponent';
-import { LOGIN } from '../../../../graphql/Mutations';
-import { AppRoutes } from '../../../../config';
-import { errorFormatter } from '../../../../helpers';
+import { AppRoutes } from '../../../config';
+import { errorFormatter } from '../../../helpers';
+import { LOGIN } from '../../../graphql/mutations';
 
 let toastId: any = null;
 
@@ -28,7 +28,7 @@ export const Login: FunctionComponent = () => {
         toast.error(message);
       } else {
         localStorage.setItem('adminToken', token);
-        history.push(AppRoutes.MAIN);
+        history.push(AppRoutes.HOME);
       }
     },
     onError: (error: ApolloError) => {
@@ -43,7 +43,7 @@ export const Login: FunctionComponent = () => {
     if (localStorage.getItem('adminToken')) {
       history.push(AppRoutes.HOME);
     }
-  }, []);
+  }, [history]);
   // on login
   const handleSubmit = (
     { userName, password }: ILoginFormValues,
